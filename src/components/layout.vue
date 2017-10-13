@@ -5,11 +5,14 @@
         <img src="../assets/logo.png">
         <div class="head-nav">
           <ul class="nav-list">
-            <li>登录</li>
+            <li>{{username}}</li>
+            <li @click="logClick" v-if="this.username === ''">登录</li>
+            <li class="nav-pile" v-if="this.username !== ''">|</li>
+            <li @click="quit" v-if="this.username !== ''">退出</li>
             <li class="nav-pile">|</li>
-            <li>注册</li>
-            <li class="nav-pile">|</li>
-            <li>关于</li>
+            <li @click="regClick" v-if="this.username === ''">注册</li>
+            <li class="nav-pile" v-if="this.username === ''">|</li>
+            <li @click="aboutClick">关于</li>
           </ul>
         </div>
       </div>
@@ -22,12 +25,59 @@
     <div class="app-foot">
       <p>© 2016 fishenal MIT</p>
     </div>
+    <my-dialog :is-show="isShowLogDialog" @on-close="closeDialog('isShowLogDialog')">
+      <log-form @has-log="onSuccessLog"></log-form>
+    </my-dialog>
+    <my-dialog :is-show="isShowRegDialog" @on-close="closeDialog('isShowRegDialog')">
+      <reg-form></reg-form>
+    </my-dialog>
+    <my-dialog :is-show="isShowAboutDialog" @on-close="closeDialog('isShowAboutDialog')">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam enim voluptatem accusantium cum magnam rerum, molestias dolores quidem qui odio quis maxime, quasi? Nemo dolorum facere itaque. Unde, nulla, ullam.</p>
+    </my-dialog>
   </div>
 </template>
 
 <script>
+import Dialog from './dialog'
+import LogForm from './logForm'
+import RegForm from './regForm'
 export default {
-  name: 'app'
+  name: 'layout',
+  components: {
+    MyDialog: Dialog,
+    LogForm,
+    RegForm
+  },
+  data(){
+    return {
+      isShowLogDialog: false,
+      isShowRegDialog: false,
+      isShowAboutDialog: false,
+      username: ''
+    }
+  },
+  methods: {
+    logClick(){
+      this.isShowLogDialog = true
+    },
+    regClick(){
+      this.isShowRegDialog = true
+    },
+    aboutClick(){
+      this.isShowAboutDialog = true
+    },
+    closeDialog(attr){
+      this[attr] = false
+    },
+    onSuccessLog(data){
+      console.log(data)
+      this.closeDialog('isShowLogDialog')
+      this.username = data.username
+    },
+    quit(){
+      this.username = ''
+    }
+  }
 }
 </script>
 
