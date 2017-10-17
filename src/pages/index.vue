@@ -75,22 +75,22 @@ export default {
       slides: [
         {
           src: require('../assets/slideShow/pic1.jpg'),
-          title: 'xxx1',
+          title: 'analysis',
           href: 'detail/analysis'
         },
         {
           src: require('../assets/slideShow/pic2.jpg'),
-          title: 'xxx2',
+          title: 'count',
           href: 'detail/count'
         },
         {
           src: require('../assets/slideShow/pic3.jpg'),
-          title: 'xxx3',
-          href: 'http://xxx.xxx.com'
+          title: 'publish',
+          href: 'detail/publish'
         },
         {
           src: require('../assets/slideShow/pic4.jpg'),
-          title: 'xxx4',
+          title: 'forecast',
           href: 'detail/forecast'
         }
       ],
